@@ -1,0 +1,13 @@
+filebeat.inputs:
+  - type: filestream
+    id: portfolio-json-logs
+    paths: ["/var/log/portfolio/application.json"]
+    parsers:
+      - ndjson:
+          target: ""
+          add_error_key: true
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  index: "portfolio-logs-%{+yyyy.MM.dd}"
+setup.template.enabled: false
+logging.level: info
